@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
 import { hashPassword, createToken, sanitizeUser } from "@/lib/auth";
 import { createUser, getUserByEmail, ensureSeedAdmin } from "@/lib/repo";
+import { Level } from "@/types";
 
 export async function POST(request: NextRequest) {
   ensureSeedAdmin(process.env.SEED_ADMIN_PASSWORD || "admin123");
@@ -12,7 +13,7 @@ export async function POST(request: NextRequest) {
   const password: string = body.password || "";
   const name: string = body.name || "School User";
   const organization: string | undefined = body.organization || undefined;
-  const levelPreference = body.levelPreference === "initial" ? "initial" : "development";
+  const levelPreference: Level = body.levelPreference === "initial" ? "initial" : "development";
 
   if (!email || !password) {
     return NextResponse.json({ error: "Email болон нууц үг шаардлагатай." }, { status: 400 });

@@ -86,7 +86,7 @@ export default function Home() {
           if (latest) {
             setScores(latest.scores);
             setLevel(latest.level);
-            setSchoolName((prev) => prev || latest.schoolName);
+            setSchoolName((prev) => prev || latest.schoolName || "");
           }
         }
       } catch (error) {
@@ -121,7 +121,7 @@ export default function Home() {
         if (res.ok && data.user) {
           setUser(data.user);
           if (data.user.organization) {
-            setSchoolName((prev) => prev || data.user.organization);
+            setSchoolName((prev) => prev || data.user.organization || "");
           }
           await fetchAssessments(stored, data.user.role);
         } else {
@@ -144,7 +144,7 @@ export default function Home() {
     setToken(newToken);
     setUser(newUser);
     if (newUser.organization) {
-      setSchoolName((prev) => prev || newUser.organization);
+      setSchoolName((prev) => prev || newUser.organization || "");
     }
     await fetchAssessments(newToken, newUser.role);
   };
