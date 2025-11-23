@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import AuthPanel from "@/components/AuthPanel";
 import SurveyForm from "@/components/SurveyForm";
@@ -28,7 +28,7 @@ type AdminAssessmentRow = {
   createdAt: string;
 };
 
-export default function Home() {
+function HomeContent() {
   const [indicatorConfig, setIndicatorConfig] = useState<IndicatorConfig[]>(indicators);
   const [scores, setScores] = useState<Record<string, number>>(emptyScores());
   const [level, setLevel] = useState<Level>("initial");
@@ -576,5 +576,13 @@ export default function Home() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div />}>
+      <HomeContent />
+    </Suspense>
   );
 }
