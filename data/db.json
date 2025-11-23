@@ -1,0 +1,83 @@
+{
+  "users": [
+    {
+      "id": "seed-admin",
+      "email": "admin@bonz.local",
+      "name": "ESG Admin",
+      "role": "admin",
+      "organization": "Platform",
+      "levelPreference": "development",
+      "passwordHash": "$2b$10$raGm3MVGZ8IklGl/AvI0gu6jjrtS9N/7iOP9vPE/6Z.IYQuWwtkAO"
+    },
+    {
+      "id": "Tln-54a0Pmze4Sl7wq3lA",
+      "email": "suumiizxc@gmail.com",
+      "name": "Sumiyadorj",
+      "role": "school",
+      "organization": "МУИС",
+      "levelPreference": "development",
+      "passwordHash": "$2b$10$94bsPbW9bPxz49yIuI/VyuR2R1eg4DUKi6P9.Hyir7BSkNXPTbCEu"
+    }
+  ],
+  "assessments": [
+    {
+      "id": "c-W7SW-283AR6iv0e9fFN",
+      "userId": "Tln-54a0Pmze4Sl7wq3lA",
+      "schoolName": "МУИС",
+      "level": "initial",
+      "scores": {
+        "E1": 3,
+        "E2": 3,
+        "E3": 3,
+        "E4": 3,
+        "E5": 3,
+        "E6": 3,
+        "E7": 3,
+        "S1": 3,
+        "S2": 3,
+        "S3": 3,
+        "S4": 3,
+        "S5": 3,
+        "S6": 3,
+        "S7": 3,
+        "S8": 3,
+        "G1": 3,
+        "G2": 3,
+        "G3": 3,
+        "G4": 3,
+        "G5": 3
+      },
+      "createdAt": "2025-11-23T04:51:41.265Z"
+    },
+    {
+      "id": "ECnUkebWp07K-0HDSgHJ7",
+      "userId": "Tln-54a0Pmze4Sl7wq3lA",
+      "schoolName": "МУИС",
+      "level": "initial",
+      "scores": {
+        "E1": 3,
+        "E2": 3,
+        "E3": 3,
+        "E4": 3,
+        "E5": 3,
+        "E6": 3,
+        "E7": 3,
+        "S1": 3,
+        "S2": 3,
+        "S3": 3,
+        "S4": 3,
+        "S5": 3,
+        "S6": 3,
+        "S7": 3,
+        "S8": 3,
+        "G1": 3,
+        "G2": 3,
+        "G3": 3,
+        "G4": 3,
+        "G5": 3
+      },
+      "createdAt": "2025-11-23T06:05:46.870Z"
+    }
+  ],
+  "indicatorOverrides": {}
+}
