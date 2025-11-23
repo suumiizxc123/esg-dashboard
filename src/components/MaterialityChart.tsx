@@ -8,7 +8,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ReferenceArea,
 } from "recharts";
 import { MaterialityPoint } from "@/lib/materiality";
 
@@ -16,8 +15,9 @@ const colors: Record<string, string> = {
   Environment: "#7ed4b5",
   Social: "#f4c361",
   Governance: "#8bb1ff",
-  Education: "#ff9f9f",
 };
+
+const colorForCategory = (category: string) => colors[category] || colors["Social"];
 
 type Props = {
   points: MaterialityPoint[];
@@ -27,8 +27,8 @@ export default function MaterialityChart({ points }: Props) {
   const data = points.map((point) => ({
     ...point,
     name: `${point.code} · ${point.label}`,
-    fill: point.isHigh ? "#f07171" : colors[point.category] || "#a0e7cc",
-    size: point.isHigh ? 80 : 50,
+    fill: point.isHigh ? "#f07171" : colorForCategory(point.category),
+    size: point.isHigh ? 100 : 70,
   }));
 
   return (
@@ -42,20 +42,23 @@ export default function MaterialityChart({ points }: Props) {
           </p>
         </div>
         <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-          {Object.entries(colors).map(([key, value]) => (
-            <span key={key} className="tag" style={{ borderColor: value, color: value }}>
-              <span
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  background: value,
-                  display: "inline-block",
-                }}
-              />
-              {key}
-            </span>
-          ))}
+          {(["Environment", "Social", "Governance"] as const).map((key) => {
+            const value = colors[key];
+            return (
+              <span key={key} className="tag" style={{ borderColor: value, color: value }}>
+                <span
+                  style={{
+                    width: 12,
+                    height: 12,
+                    borderRadius: "50%",
+                    background: value,
+                    display: "inline-block",
+                  }}
+                />
+                {key}
+              </span>
+            );
+          })}
         </div>
       </div>
       <div style={{ flex: 1, minHeight: 320 }}>
@@ -78,7 +81,7 @@ export default function MaterialityChart({ points }: Props) {
             tick={{ fill: "var(--muted)" }}
             label={{ value: "Гадаад орчинд үзүүлэх нөлөө", angle: -90, position: "insideLeft", fill: "var(--muted)" }}
           />
-          <ReferenceArea x1={3.5} x2={5} y1={0.7} y2={1} fill="#f07171" fillOpacity={0.08} stroke="#f07171" />
+          {/* Removed red highlight area */}
           <Tooltip
             contentStyle={{ background: "#0f2f3c", border: "1px solid var(--border)", borderRadius: 12 }}
             labelStyle={{ color: "#fff" }}

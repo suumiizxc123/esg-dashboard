@@ -77,6 +77,64 @@
         "G5": 3
       },
       "createdAt": "2025-11-23T06:05:46.870Z"
+    },
+    {
+      "id": "J6AwUb-NKFpi0KRQYdNEz",
+      "userId": "Tln-54a0Pmze4Sl7wq3lA",
+      "schoolName": "МУИС",
+      "level": "initial",
+      "scores": {
+        "E1": 0,
+        "E2": 0,
+        "E3": 0,
+        "E4": 0,
+        "E5": 0,
+        "E6": 0,
+        "E7": 0,
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "S7": 0,
+        "S8": 0,
+        "G1": 0,
+        "G2": 0,
+        "G3": 0,
+        "G4": 0,
+        "G5": 0
+      },
+      "createdAt": "2025-11-23T16:44:53.597Z"
+    },
+    {
+      "id": "l03nPoY7jLmTeZ7nKZLMw",
+      "userId": "Tln-54a0Pmze4Sl7wq3lA",
+      "schoolName": "МУИС",
+      "level": "initial",
+      "scores": {
+        "E1": 0,
+        "E2": 0,
+        "E3": 0,
+        "E4": 0,
+        "E5": 0,
+        "E6": 0,
+        "E7": 0,
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0,
+        "S5": 0,
+        "S6": 0,
+        "S7": 0,
+        "S8": 0,
+        "G1": 0,
+        "G2": 0,
+        "G3": 0,
+        "G4": 0,
+        "G5": 0
+      },
+      "createdAt": "2025-11-23T16:53:56.073Z"
     }
   ],
   "indicatorOverrides": {}

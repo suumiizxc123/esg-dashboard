@@ -53,7 +53,7 @@ export default function AIInsights({ level, overall, weakest, highMaterialCodes,
       <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap" }}>
         <div>
           <div className="pill">AI зөвлөмж (Монгол)</div>
-          <h3 style={{ marginTop: 8 }}>OpenAI-гаар Монголоор богино action plan гаргах</h3>
+          <h3 style={{ marginTop: 8 }}>AI Монголоор богино action plan гаргах</h3>
           <p style={{ color: "var(--muted)", fontSize: 14 }}>
             Таны оноо, сул үзүүлэлт, материаллаг асуудлуудыг ашиглаж 3 тэргүүлэх чиглэл, 3 ойрын алхмыг санал болгоно.
           </p>

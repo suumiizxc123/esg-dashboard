@@ -6,7 +6,7 @@ export const indicators: IndicatorConfig[] = [
     label: "Эрчим хүчний хэмнэлт",
     category: "Environment",
     description: "Эрчим хүчний хэрэглээ, сэргээгдэх эх үүсвэрийн хэрэглээ.",
-    initialQuestion: "Эрчим хүчний хэрэглээгээ хэмжиж, веб дээрээ тайлагнадаг уу?",
+    initialQuestion: "Танай сургууль эрчим хүчний хэрэглээгээ хэмждэг үү?",
     developmentQuestion:
       "Сэргээгдэх эх үүсвэр хэрэглэж байна уу, жилийн бууруулах зорилт тавьсан уу?",
     weight: 1.2,
@@ -29,8 +29,7 @@ export const indicators: IndicatorConfig[] = [
     label: "Ногоон кампус",
     category: "Environment",
     description: "Ногоон дэд бүтэц, талбай, ногоон барилгын гэрчилгээ.",
-    initialQuestion:
-      "Кампусын талбай, ногоон талбайн хэмжээ (м²) вэб дээр байдаг уу?",
+    initialQuestion: "Кампусын талбай, ногоон талбайн хэмжээ (м²) байдаг уу?",
     developmentQuestion:
       "Ногоон барилгын гэрчилгээ эсвэл ногоон талбай/оюутан >10 м² байна уу?",
     weight: 1,
@@ -41,7 +40,7 @@ export const indicators: IndicatorConfig[] = [
     label: "Усны хэрэглээ",
     category: "Environment",
     description: "Усны хэрэглээний хяналт, дахин ашиглах систем.",
-    initialQuestion: "Усны хэрэглээгээ хэмжиж, мэдээлдэг үү?",
+    initialQuestion: "Зарцуулсан усны хэрэглээгээ хэмждэг үү?",
     developmentQuestion:
       "Сар бүр хэмждэг, дахин ашиглах системтэй (борооны ус г.м) юу?",
     weight: 0.9,
@@ -53,7 +52,7 @@ export const indicators: IndicatorConfig[] = [
     category: "Environment",
     description:
       "Хог ангилалт, дахин боловсруулалтын хувь, төрлөөр тайлагнал.",
-    initialQuestion: "Хогийг ангилж цуглуулдаг уу, вэб дээр мэдээлэл байна уу?",
+    initialQuestion: "Хогийг ангилж цуглуулдаг уу?",
     developmentQuestion:
       "Төрлөөр тайлагнадаг уу, дахин боловсруулалтын хувь 40%-аас дээш үү?",
     weight: 1,
