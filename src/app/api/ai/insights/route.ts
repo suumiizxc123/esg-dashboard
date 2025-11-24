@@ -6,10 +6,17 @@ import OpenAI from "openai";
 const model = "gpt-4o-mini";
 
 export async function POST(request: NextRequest) {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey =
+    process.env.OPENAI_API_KEY?.trim() ||
+    process.env.OPEN_API_KEY?.trim() ||
+    process.env.NEXT_PUBLIC_OPENAI_API_KEY?.trim();
+
   if (!apiKey) {
     return NextResponse.json(
-      { error: "OPENAI_API_KEY тохироогүй байна. .env.local файлдаа нэмж өгөөрэй." },
+      {
+        error:
+          "OpenAI API key тохироогүй байна. .env.local файлдаа OPENAI_API_KEY (эсвэл OPEN_API_KEY) утгаа оруулаад серверээ дахин асаана уу.",
+      },
       { status: 500 },
     );
   }
@@ -67,6 +74,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ text });
   } catch (error) {
     console.error("AI insights error:", error);
+
+    if (error instanceof OpenAI.APIError) {
+      const message =
+        error.status === 401 || error.status === 403
+          ? "OpenAI API key буруу эсвэл зөвшөөрөлгүй байна. Клүүчээ шалгана уу."
+          : error.message || "AI зөвлөмж гаргах үед алдаа гарлаа.";
+      return NextResponse.json({ error: message }, { status: error.status || 500 });
+    }
+
     return NextResponse.json({ error: "AI зөвлөмж гаргах үед алдаа гарлаа." }, { status: 500 });
   }
 }

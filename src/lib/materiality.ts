@@ -57,8 +57,9 @@ export function materialityPoints(
   return config.map((indicator) => {
     const score = clampScore(scores[indicator.code] ?? 0);
     const x = Number((5 - score * indicator.weight).toFixed(2));
-    const y = Number(indicator.impact.toFixed(2));
-    const isHigh = x >= 3.5 && y >= 0.7;
+    const impact = Math.max(0, Math.min(1, indicator.impact ?? 0));
+    const y = Number((impact * 5).toFixed(2));
+    const isHigh = x >= 3.5 && y >= 3.5;
 
     return {
       code: indicator.code,

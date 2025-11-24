@@ -44,7 +44,7 @@ function HomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialStageParam = searchParams.get("stage") as "landing" | "survey" | "results" | null;
-  const [stage, setStage] = useState<"landing" | "survey" | "results">(initialStageParam || "landing");
+  const [stage, setStage] = useState<"landing" | "survey" | "results">("landing");
 
   const materiality = useMemo(
     () => materialityPoints(scores, indicatorConfig),
@@ -147,10 +147,39 @@ function HomeContent() {
   }, [fetchAssessments]);
 
   useEffect(() => {
-    if (initialStageParam && initialStageParam !== stage) {
+    if (!initialStageParam) return;
+    if (initialStageParam === "landing") {
+      if (stage !== "landing") setStage("landing");
+      return;
+    }
+    if (!user) {
+      setStatus("Нэвтэрч байж оношлогоо, үр дүн болон админ хэсгийг үзнэ.");
+      return;
+    }
+    if (initialStageParam !== stage) {
       setStage(initialStageParam);
     }
-  }, [initialStageParam, stage]);
+  }, [initialStageParam, stage, user]);
+
+  useEffect(() => {
+    if (!user && stage !== "landing") {
+      setStage("landing");
+      router.replace("?stage=landing");
+      setStatus("Нэвтэрч байж оношлогоо, үр дүн болон админ хэсгийг үзнэ.");
+    }
+  }, [user, stage, router]);
+
+  const requireLogin = (target: "survey" | "results" | "admin" = "survey") => {
+    if (user) return true;
+    const message =
+      target === "admin"
+        ? "Админ хэсгийг үзэхийн тулд эхлээд нэвтэрнэ."
+        : "Нэвтэрч байж оношлогоо болон үр дүнг үзнэ.";
+    setStatus(message);
+    setStage("landing");
+    router.replace("?stage=landing");
+    return false;
+  };
 
   const handleAuth = async ({ token: newToken, user: newUser }: { token: string; user: PublicUser }) => {
     localStorage.setItem("token", newToken);
@@ -176,6 +205,7 @@ function HomeContent() {
   };
 
   const startSurvey = () => {
+    if (!requireLogin("survey")) return;
     setStage("survey");
     setScores(emptyScores());
     router.replace("?stage=survey");
@@ -185,6 +215,7 @@ function HomeContent() {
   };
 
   const goResults = () => {
+    if (!requireLogin("results")) return;
     setStage("results");
     router.replace("?stage=results");
     setTimeout(() => {
@@ -193,6 +224,7 @@ function HomeContent() {
   };
 
   const goAdminSection = () => {
+    if (!requireLogin("admin")) return;
     setStage("results");
     router.replace("?stage=results");
     setTimeout(() => {
@@ -205,6 +237,10 @@ function HomeContent() {
     setToken(null);
     setUser(null);
     setAdminAssessments([]);
+    setShowAi(false);
+    setStage("landing");
+    router.replace("?stage=landing");
+    setScores(emptyScores());
     setStatus("Гарав.");
   };
 
@@ -284,11 +320,11 @@ function HomeContent() {
             <span className="logo-mark">БОНЗ оношлогооны систем</span>
             <span className="pill ghost">v2.0 · 20 үзүүлэлт</span>
             <span className="pill">Scatter · Heatmap · 120+ зөвлөмж</span>
-          </div>
-          <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-            <button className="button ghost" onClick={goLanding}>
-              Нүүр
-            </button>
+        </div>
+        <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+          <button className="button ghost" onClick={goLanding}>
+            Нүүр
+          </button>
             <button className="button ghost" onClick={startSurvey}>
               Оношлогоо
             </button>
@@ -302,6 +338,13 @@ function HomeContent() {
           </div>
         </div>
 
+        {stage === "landing" && status && !user && (
+          <div className="card" style={{ marginTop: 12 }}>
+            <div className="pill">Статус</div>
+            <p style={{ marginTop: 6, color: "var(--muted)" }}>{status}</p>
+          </div>
+        )}
+
         {stage === "landing" && (
           <section className="hero">
             <div className="hero-grid">
@@ -311,8 +354,8 @@ function HomeContent() {
                   БОНЗ оношлогооны систем
               </h1>
               <p style={{ color: "var(--muted)", fontSize: 16, lineHeight: 1.6 }}>
-                Түвшнээ сонгоод 20 үзүүлэлтийг 0–4 оноогоор үнэл. Систем X = 5 – (оноо×жин), Y = нөлөөллийн
-                коэффициентоор тооцоолж scatter plot, эрсдэлийн heatmap, дараагийн алхмын зөвлөмжийг гаргана.
+                Түвшнээ сонгоод 20 үзүүлэлтийг 0–4 оноогоор үнэл. Систем X = 5 – (оноо×жин), Y = нөлөөллийг 0–5
+                шкалд хувиргаж тооцоолж scatter plot, эрсдэлийн heatmap, дараагийн алхмын зөвлөмжийг гаргана.
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <button className="button cta" onClick={startSurvey}>
@@ -363,6 +406,20 @@ function HomeContent() {
               </div>
             </div>
           </section>
+        )}
+
+        {stage === "landing" && !user && (
+          <div className="grid-2" style={{ marginTop: 12 }}>
+            <AuthPanel user={user} onAuth={handleAuth} onLogout={handleLogout} />
+            <div className="card">
+              <div className="pill">Нэвтрэлт шаардлагатай</div>
+              <h3 style={{ marginTop: 10 }}>Оношлогоо, үр дүн, админ хэсгийг харахын тулд эхлээд нэвтэрнэ</h3>
+              <p style={{ color: "var(--muted)", marginTop: 6 }}>
+                Нэвтэрсний дараа оношлогоог эхлүүлэх товчоор шууд асуулгын хэсэг рүү орно. Demo админ имэйл:
+                admin@bonz.local
+              </p>
+            </div>
+          </div>
         )}
 
         <div className="stat-grid" style={{ display: stage === "landing" ? "grid" : "none" }}>

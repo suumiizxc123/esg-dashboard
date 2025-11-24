@@ -36,13 +36,18 @@ export default function AIInsights({ level, overall, weakest, highMaterialCodes,
       });
       const data = await res.json();
       if (!res.ok) {
-        setStatus(data.error || "AI зөвлөмж авахад алдаа гарлаа.");
+        setStatus(
+          data.error ||
+            "AI зөвлөмж авахад алдаа гарлаа. OPENAI_API_KEY эсвэл OPEN_API_KEY тохирсон эсэхээ шалгана уу.",
+        );
         return;
       }
       setText(data.text);
     } catch (error) {
       console.error(error);
-      setStatus("AI зөвлөмж авахад алдаа гарлаа.");
+      setStatus(
+        "AI зөвлөмж авахад алдаа гарлаа. Сүлжээ болон OPENAI_API_KEY/OPEN_API_KEY тохиргоогоо шалгана уу.",
+      );
     } finally {
       setLoading(false);
     }
@@ -74,7 +79,7 @@ export default function AIInsights({ level, overall, weakest, highMaterialCodes,
             onChange={(e) => setNote(e.target.value)}
           />
           <p style={{ color: "var(--muted)", fontSize: 12, marginTop: 6 }}>
-            OPENAI_API_KEY-г .env.local файлд тохируулсан байх ёстой.
+            OPENAI_API_KEY (эсвэл OPEN_API_KEY)-г .env.local файлд тохируулсан байх ёстой.
           </p>
         </div>
         <div>
