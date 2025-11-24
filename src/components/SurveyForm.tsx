@@ -31,7 +31,7 @@ export default function SurveyForm({
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
         <div>
           <div className="pill">Алхам 1 — Түвшин сонго</div>
-          <h3 style={{ marginTop: 10 }}>Өөрийн үнэлгээ (0-4)</h3>
+          <h3 style={{ marginTop: 10 }}>Өөрийн үнэлгээ (0-4, 0.5 алхам)</h3>
           <p style={{ color: "var(--muted)", fontSize: 14, marginTop: 6 }}>
             Түвшин сонгосноор асуулт автоматаар солигдоно. Оноог хадгалснаар
             дүн, график, зөвлөмжүүд шинэчлэгдэнэ.
@@ -122,7 +122,7 @@ export default function SurveyForm({
               type="range"
               min={0}
               max={4}
-              step={1}
+              step={0.5}
               value={scores[indicator.code] ?? 0}
               onChange={(e) => onScoreChange(indicator.code, Number(e.target.value))}
               style={{ width: "100%", marginTop: 12 }}

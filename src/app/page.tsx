@@ -204,10 +204,12 @@ function HomeContent() {
     }, 50);
   };
 
-  const startSurvey = () => {
+  const startSurvey = (resetScores = false) => {
     if (!requireLogin("survey")) return;
+    if (resetScores) {
+      setScores(emptyScores());
+    }
     setStage("survey");
-    setScores(emptyScores());
     router.replace("?stage=survey");
     setTimeout(() => {
       document.getElementById("survey-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -325,7 +327,7 @@ function HomeContent() {
           <button className="button ghost" onClick={goLanding}>
             Нүүр
           </button>
-            <button className="button ghost" onClick={startSurvey}>
+            <button className="button ghost" onClick={() => startSurvey()}>
               Оношлогоо
             </button>
             <button className="button ghost" onClick={goResults}>
@@ -358,7 +360,7 @@ function HomeContent() {
                 шкалд хувиргаж тооцоолж scatter plot, эрсдэлийн heatmap, дараагийн алхмын зөвлөмжийг гаргана.
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <button className="button cta" onClick={startSurvey}>
+                <button className="button cta" onClick={() => startSurvey()}>
                   Оношлогоо эхлүүлэх
                 </button>
                 <span className="tag">High-High → улаан</span>
@@ -498,7 +500,7 @@ function HomeContent() {
               saving={savingAssessment}
             />
             <div style={{ marginTop: 12, display: "flex", gap: 10 }}>
-              <button className="button secondary" onClick={startSurvey}>
+              <button className="button secondary" onClick={() => startSurvey(true)}>
                 Оноог цэвэрлэх
               </button>
               <button className="button" onClick={goResults}>
